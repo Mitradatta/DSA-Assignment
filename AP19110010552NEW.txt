@@ -1,0 +1,294 @@
+
+
+
+                                                                                                                                                            DSA     Assignment
+
+
+
+
+Q1.Write a c program to reverse a string using stack
+Ans.
+#include<stdio.h>  
+#include<string.h>
+#define max 50
+char stack[max]
+int top=-1;  
+void push(char c)
+{
+      if(top==n-1)
+          printf("Stack  is overflow");  
+      else
+     {  
+          top++;
+          stack[top]=c;  
+      }  
+}
+void pop()
+{  
+      printf(" Deleted element is %c",stack[top]);  
+      top--;
+}
+void reversestring()
+{
+    int i;
+    for(i=top;  i>=0;  i--)
+          printf(""\n %c",stack[i]);
+}
+void main()
+{
+   char a[]="This is DSA Assignment";  
+   int i;  
+   for(i=0;i<strlen(a);i++)  
+        push(a[i]); 
+   reversestring();
+    
+}
+
+Q2.Write a program for Infix To Postfix Conversion Using Stack.
+#include <stdio.h>
+#include <ctype.h>
+#define max 100         
+char stack[max];
+int top=-1;       
+push(char c)
+{
+   top++;
+  stack[top]=c;
+}
+char pop()
+{
+    return(stack[top--]);
+}
+int precendence(char symbol)
+{
+	if(symbol == '^')
+	      return(3);
+	else if(symbol == '*' || symbol == '/')
+                        return(2);
+	else if(symbol == '+' || symbol == '-')
+	       return(1);
+	else
+	       return(0);
+	
+}
+void main()
+{
+    char infix[100],postfix[100],ch,c;
+    int i=0,j=0;
+    printf("Enter the Infix Expression : ");
+    scanf("%s",infix);
+    push('#');
+    while( (ch=infix[i++]) != '\0')
+   {
+        if( ch == '(' )
+              push(ch);
+        else if(isalnum(ch)) 
+               postfix[j++]=ch;
+         else if( ch == ')')
+        {
+                 while( stack[top] != '(')
+                      postfix[j++]=pop();
+                  c=pop(); 
+         }
+         else
+        {       
+                   while( pr(stack[top]) >= pr(ch) )
+                        postfix[j++]=pop();
+                    push(ch);
+         }
+    }
+    while( stack[top] != '#')     
+        postfix[j++]=pop();
+    postfix[j]='\0';          
+    printf("\nThe  Postfix Expression is   %s ",postfix);
+}
+
+Q3.Write a c program to implement queue using two stacks .
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct queue
+{
+    struct node *stack1;
+    struct node *stack2;
+};
+void enqueue(struct queue *m, int n)
+{
+    push(&m->stack1, n);
+}
+void dequeue(struct queue *m)
+{
+    int x;
+    if (m->stack1 == NULL && m->stack2 == NULL) 
+   {
+        printf("Queue is empty");
+        return;
+    }
+    if (m->stack2 == NULL) 
+   {
+        while (m->stack1 != NULL) 
+       {
+               x = pop(&m->stack1);
+               push(&m->stack2, x);
+        }
+    }
+    x = pop(&m->stack2);
+    printf("\n Deleted element is %d", x);
+}
+void push(struct node** top, int data)
+{
+    struct node* newnode = (struct node*) malloc(sizeof(struct node));
+    if (newnode == NULL)
+    {
+            printf("Stack is overflow \n");
+            return;
+     }
+    newnode->data = data;
+    newnode->next = (*top);
+    (*top) = newnode;
+}
+int pop(struct node** top)
+{
+    int b;
+    struct node *t;
+    if (*top == NULL) 
+   {
+        printf("Stack underflow \n");
+        return 0;
+    }
+    else 
+   {
+        t = *top;
+        b = t->data;
+        *top = t->next;
+        free(t);
+        return b;
+    }
+}
+void display(struct node *top1,struct node *top2)
+{
+    while (top1 != NULL) 
+   {
+        printf("\n%d", top1->data);
+        top1 = top1->next;
+    }
+    while (top2 != NULL) 
+    {
+        printf("\n%d", top2->data);
+        top2 = top2->next;
+    }
+}
+int main(){
+    struct queue *m= (struct queue*)malloc(sizeof(struct queue));
+    int f ,a;
+    m->stack1 = NULL;
+    m->stack2 = NULL;
+    while (1)
+   {
+        printf("Enter Choice\n1.add to queue 2.remove from queue 3.display 4.exit: ");
+        scanf("%d",&f);
+        switch(f){
+            case 1 : printf("Enter  element to be added to queue: ");
+                     scanf("%d", &a);
+                     enqueue(q, a);
+                     break;
+            case 2 : dequeue(q);
+                     break;
+            case 3 : display(q->stack1, q->stack2);
+                     break;
+            case 4 : exit(1);
+                     break;
+            default : printf("\n Invalid input");
+                      break;
+        }
+    }
+}
+
+Q4.Write a c program for insertion and deletion of BST.
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int key;
+    struct node *left,*right;
+};
+struct node *newNode(int x)
+{
+    struct node *temp=(struct node*)malloc(sizeof(struct node));
+    temp->key=x;
+    temp->left=temp->right=NULL;
+    return temp;
+}
+void inorder(struct node *root)
+{
+    if(root!=NULL)
+    {
+        inorder(root->left);
+        printf("\n %d",root->key);
+        inorder(root->right);
+    }
+}
+struct node *insert(struct node* node,int n)
+{
+    if(node==NULL)
+        return newNode(n);
+    else if(n<node->key)
+        node->left=insert(node->left,n);
+    else if(n>node->key)
+        node->right=insert(node->right,n);
+    return node;
+}
+struct node *minNode(struct node *node)
+{
+    struct node *k=node;
+    while (k && k->left!=NULL)
+    k=k->left;
+    return k;
+}
+struct node*deleteNode(struct node*root,int n)
+{
+    if(root==NULL)
+    return root;
+    if(n<root->key)
+        root->left=deleteNode(root->left,n);
+    else if(n>root->key)
+        root->right=deleteNode(root->right,n);
+    else
+   {
+        if(root->left==NULL)
+       {
+            struct node *temp=root->right;
+            free(root);
+            return temp;
+        }
+         if(root->right==NULL)
+        {
+            struct node *temp=root->left;
+            free(root);
+            return temp;
+        }
+        struct node *temp=minNode(root->right);
+        root->key=temp->key;
+        root->right=deleteNode(root->right,temp->key);
+    }
+    return root;
+}
+void main()
+{
+    struct node *root=NULL;
+    root=insert(root,25);
+    insert(root,40);
+    insert(root,15);
+    insert(root,11);
+    insert(root,87);
+    insert(root,51);
+    insert(root,70);
+    inorder(root);
+    root=deleteNode(root,51);
+    printf("Inorder transversal of changed BST is \n");
+    inorder(root);
+}
