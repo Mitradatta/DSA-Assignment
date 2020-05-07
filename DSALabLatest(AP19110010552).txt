@@ -1,0 +1,179 @@
+
+                                                                                                                                                     DSA-LAB(MAY 7)
+
+
+1. Write a program for the Insertion sort algorithm.
+Ans
+#include<stdio.h>
+void main()
+{
+   int i,j,n,temp;
+   printf("Enter number of elements you want to sort:");
+   scanf("%d",&n);
+   int a[n];
+   for(i=0; i<n; i++)
+   {
+      printf("Enter a[%d]:",i);
+      scanf("%d",&a[i]);
+   }
+   for(i=1; i<n; i++)
+   {
+      temp=a[i];
+      j=i-1;
+      while((temp<a[j])&&(j>=0))
+      {
+         a[j+1]=a[j];
+         j=j-1;
+      }
+      a[j+1]=temp;
+   }
+
+   printf("Sorted array is: ");
+   for(i=0; i<n; i++)
+      printf("%d ",a[i]);
+
+}
+
+Output: Enter number of  elements you want to sort:3
+              Enter a[0]:45
+              Enter a[1]:2
+              Enter a[2]:67
+              Sorted  array is:2 45 67
+
+
+2.Write a program for the Selection sort algorithm.
+Ans
+#include<stdio.h>
+void main()
+{
+   int i,j,n,temp;
+   printf("Enter number of elements you want to sort:");
+   scanf("%d",&n);
+   int a[n];
+   for(i=0; i<n; i++)
+   {
+      printf("Enter a[%d]:",i);
+      scanf("%d",&a[i]);
+   }
+   for(i=0;i<n;i++)
+   {
+      for(j=i+1; j<n; j++)
+      {
+         if(a[i]>a[j])
+         {
+            temp=a[i];
+            a[i]=a[j];
+            a[j]=temp;
+         }
+      }
+   }
+   printf("Sorted array is: ");
+   for(i=0; i<n; i++)
+      printf("%d ",a[i]);
+
+}
+Output: Enter number of  elements you want to sort:4
+              Enter a[0]:45
+              Enter a[1]:23
+              Enter a[2]:61
+              Enter a[3]:3
+              Sorted  array is:3 23 45 67
+
+3. Write a program for the Bubble sort algorithm
+Ans.
+#include <stdio.h>
+void main()
+{
+    int n,i,j,temp;
+    printf("Enter number of numbers you want to enter:");
+    scanf("%d",&n);
+    int a[n];
+    for(i=0; i <n; i++)
+    {
+        printf("Ente a[%d]:",i);
+        scanf("%d",&a[i]);
+    }
+    for(i=0; i <n; i++)
+    {
+        for(j=0; j<n-1; j++)
+        {
+            if(a[j]<a[j+1])
+            {
+                 temp=a[j+1];
+                 a[j+1]=a[j];
+                 a[j]=temp;
+            }
+         }
+     }
+     printf("Sorted array is: ");
+     for(i=0; i<n; i++)
+         printf("%d ",a[i]);
+     
+ }
+
+Output:Enter number of elements you want to sort:4
+              Enter a[0]:12
+              Enter a[1]:62
+              Enter a[2]:14
+              Enter a[3]:5
+              Sorted  array is:5 12 14 62
+
+4.Write a program for the Merge sort algorithm
+Ans 
+
+#include<stdio.h>
+#include<conio.h>
+void merge_array(int arry[],int a,int b,int c,int d)
+{
+  int t[20];
+  int i=a,j=c,k=0;
+  while(i<=b && j<= d)
+  {
+      if(arry[i]<arry[j])
+        t[k++]=arry[i++];
+      else
+    	t[k++]=arry[j++];
+  }
+  while(i<=b)
+    t[k++]=arry[i++];
+  while(j<=d)
+    t[k++]=arry[j++];
+  for(i=a, j=0; i<=d; i++,j++)
+    arry[i] = t[j];
+}
+void merge_sort(int arry[],int i,int j)
+{
+  int m;
+  if(i<j)
+    {
+      m=(i+j)/2;
+      merge_sort(arry,i,m);
+      merge_sort(arry,m+1,j);
+      merge_array(arry,i,m,m+1,j);
+    }
+}
+void main()
+{
+  int i,n;
+  printf("Enter number of  elements you want to sort:");
+  scanf("%d",&n);
+  int arry[n];
+  for(i=0; i<n; i++)
+  {
+      printf("Enter a[%d]:",i);
+      scanf("%d",&arry[i]);
+  }
+  for(i=0; i<n; i++)
+      printf("%d ",arry[i]);
+  merge_sort(arry,0,n-1);
+  printf("\nSorted array is:");
+  for (i=0; i<n; i++)
+      printf("%d ",arry[i]);
+}
+
+Output:Enter number of  elements you want to sort:4
+              Enter a[0]:5
+              Enter a[1]:76
+              Enter a[2]:14
+              Enter a[3]:18
+              Sorted  array is:5 14 18 76
